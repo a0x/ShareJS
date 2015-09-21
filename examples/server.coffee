@@ -5,6 +5,9 @@ connect = require 'connect'
 serveStatic = require 'serve-static'
 argv = require('optimist').argv
 livedb = require 'livedb'
+bcOptions =
+  browserChannel:
+    corsAllowCredentials: true
 
 try
   require 'heapdump'
@@ -15,6 +18,7 @@ webserver = connect()
 
 webserver.use serveStatic "#{__dirname}/public"
 webserver.use serveStatic sharejs.scriptsDir
+
 
 backend = livedb.client livedb.memory()
 
@@ -35,7 +39,7 @@ share.use 'connect', (req, callback) ->
 
 numClients = 0
 
-webserver.use browserChannel {webserver, sessionTimeoutInterval:5000}, (client) ->
+webserver.use browserChannel {webserver, cors:"*", sessionTimeoutInterval:5000}, (client) ->
   numClients++
   stream = new Duplex objectMode:yes
   stream._write = (chunk, encoding, callback) ->
