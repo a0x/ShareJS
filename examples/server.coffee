@@ -5,9 +5,6 @@ connect = require 'connect'
 serveStatic = require 'serve-static'
 argv = require('optimist').argv
 livedb = require 'livedb'
-bcOptions =
-  browserChannel:
-    corsAllowCredentials: true
 
 try
   require 'heapdump'
@@ -39,6 +36,7 @@ share.use 'connect', (req, callback) ->
 
 numClients = 0
 
+# The specific domain(`cors`) must be defined in the future's production environment.
 webserver.use browserChannel {webserver, cors:"*", sessionTimeoutInterval:5000}, (client) ->
   numClients++
   stream = new Duplex objectMode:yes
