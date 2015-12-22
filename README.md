@@ -49,6 +49,20 @@ Run the tests:
     # npm install
     # mocha
 
+Running in Docker
+-----------------
+
+First build the docker image:
+```
+docker build -t hv/sharejs .
+```
+
+and then run the docker image:
+
+```
+docker run -p 7007:7007 -d hv/sharejs
+```
+
 
 ## Server API
 
@@ -426,7 +440,7 @@ doc.subscribe();
 // This will be called when we have a live copy of the server's data.
 doc.whenReady(function() {
   console.log('doc ready, data: ', doc.getSnapshot());
-  
+
   // Create a JSON document with value x:5
   if (!doc.type) doc.create('text');
   doc.attachTextarea(document.getElementById('pad'));
@@ -447,7 +461,7 @@ doc.subscribe();
 // This will be called when we have a live copy of the server's data.
 doc.whenReady(function() {
   console.log('doc ready, data: ', doc.getSnapshot());
-  
+
   // Create a JSON document with value x:5
   if (!doc.type) doc.create('json0', {x:5});
 });
