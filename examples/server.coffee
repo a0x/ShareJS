@@ -12,8 +12,9 @@ try
 sharejs = require '../lib'
 
 webserver = connect()
-
+# static pages in `public/` dir is only for test, need to shutdown in production environment.
 webserver.use serveStatic "#{__dirname}/public"
+
 webserver.use serveStatic sharejs.scriptsDir
 
 
