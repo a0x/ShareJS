@@ -1,5 +1,5 @@
 # Init
-FROM node
+FROM node:4.3.0
 
 # Install Essentials
 RUN apt-get update &&\
