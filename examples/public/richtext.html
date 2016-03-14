@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>ShareJS with Rich-text</title>
+</head>
+<body>
+
+<script>
+    var socket = new BCSocket(null, {reconnect: true});
+    var sjs = new sharejs.Connection(socket);
+    sharejs.registerType(window.ottypes('rich-text'));
+    var doc = sjs.get('docs', 'rich');
+    // console.log(doc);
+    doc.subscribe();
+    doc.whenReady(function() {
+        /**
+         * Logic here:
+         *   1. Check doc type
+         *   2. Update doc with recent changes
+         *   3. When text-change, submitOp()
+         *   4. Update doc when receive op
+         *
+         * Anyway, let's forget the matters about multi-cursors. And here are something seriously:
+         *   1. add 'text-change' event on Simdotor
+         *   2. solve the 'lock' issue in submitOp()
+         *   3. add a method `updateContent()` in Simditor to update the rich-tech content in Delta array.
+         */
+        console.log('doc ready', doc);
+        if (!doc.type) {
+            doc.create('rich-text', '');
+            console.log('created as rich-text', doc);
+        }
+    });
+</script>
+</body>
+</html>
