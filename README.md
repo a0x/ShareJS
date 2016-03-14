@@ -60,7 +60,7 @@ docker build -t hv/sharejs .
 and then run the docker image:
 
 ```
-docker run -p 7007:7007 -d hv/sharejs
+docker run -p 7007:7007 --restart always -d hv/sharejs
 ```
 
 
